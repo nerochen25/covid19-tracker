@@ -2,16 +2,25 @@ import React from 'react';
 
 import { Cards, Chart, CountryPicker }  from './components';
 import styles from './App.module.css';
+import { fetchData } from './api'; //no need to put /api/index since index will be searched automatically
 
 
 class App extends React.Component {
+    state = {
+        data: {},
+    }
+    async componentDidMount() {
+        const fetchedData = await fetchData();
+        this.setState({data: fetchedData});
+    }
+
     render() {
+        const { data } = this.state.data;
         return (
             <div className={styles.container}>
-                <h1>COVID-19 TRACKER</h1>
-                <Cards />
-                <Chart />
+                <Cards data={this.state.data}/>
                 <CountryPicker />
+                <Chart />
             </div>
         )
     }
