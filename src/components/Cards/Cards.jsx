@@ -9,6 +9,8 @@ const Cards = ( {data: {confirmed, recovered, deaths, lastUpdate}}) => {
     if(!confirmed) {
         return "Loading......";
     } 
+    let mortailityRate = (deaths.value / confirmed.value * 100).toFixed(2);
+    let recoveredRate = (recovered.value / confirmed.value * 100).toFixed(2);
     return (
         <div className={styles.container}>
             <Grid container spacing={3} justify='center'>
@@ -27,7 +29,8 @@ const Cards = ( {data: {confirmed, recovered, deaths, lastUpdate}}) => {
                         <Typography color='textSecondary' gutterBottom>Recovered</Typography>
                         <Typography variant='h5'>
                             <CountUp start={0} end={recovered.value} duration={2.5} separator=','/>
-                        </Typography>                        
+                        </Typography>   
+                        <Typography variant='body2' color='textSecondary'>Recovered Rate: {recoveredRate}%</Typography>                     
                         <Typography color='textSecondary'>{new Date(lastUpdate).toDateString()}</Typography>
                         <Typography variant='body2'>Number of recovered cases of COVID-19</Typography>
                     </CardContent>
@@ -37,7 +40,8 @@ const Cards = ( {data: {confirmed, recovered, deaths, lastUpdate}}) => {
                         <Typography color='textSecondary' gutterBottom>Deaths</Typography>
                         <Typography variant='h5'>
                             <CountUp start={0} end={deaths.value} duration={2.5} separator=','/>
-                        </Typography>                        
+                        </Typography>     
+                        <Typography variant='body2' color='secondary'>Mortality Rate: {mortailityRate}%</Typography>
                         <Typography color='textSecondary'>{new Date(lastUpdate).toDateString()}</Typography>
                         <Typography variant='body2'>Number of deaths caused by COVID-19</Typography>
                     </CardContent>
